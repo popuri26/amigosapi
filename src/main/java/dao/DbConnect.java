@@ -62,12 +62,6 @@ public static String connectPA(String token,String secret, String pin,String aut
 	try{
 		String link="https://primeauth.com/api/v1/smart_card/edit_auth.json?"
 				+ "token="+token.replace("\\", "\\\\")+"&secret="+secret.replace("\\", "\\\\")+"&auth_id="+authId.replace("\\", "\\\\");
-		
-//		link="https://primeauth.com/api/v1/smart_card/edit_auth.json?token=63f28afd95d178df830f74dc805a7770"+
-//			"&secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&"
-//			+ "auth_id=+1ZWSp+L+nDvwudBwHs4c5Q==\n";
-		//			https://primeauth.com/api/v1/smart_card/edit_auth.json?
-		//				token=63f28afd95d178df830f74dc805a7770&secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&auth_id=123
 		URL url=new URL(link);
 		HttpsURLConnection httpsURLConnection=(HttpsURLConnection) url.openConnection();
 		httpsURLConnection.setRequestMethod("POST");
