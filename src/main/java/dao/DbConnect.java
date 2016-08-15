@@ -62,8 +62,10 @@ public class DbConnect {
 		try{
 
 			String link="https://primeauth.com/api/v1/smart_card/edit_auth.json?"
-					+ "&token=63f28afd95d178df830f74dc805a7770&"
+					+ "token=63f28afd95d178df830f74dc805a7770&"
 					+ "&secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&auth_id="+authId;
+//			https://primeauth.com/api/v1/smart_card/edit_auth.json?
+//				token=63f28afd95d178df830f74dc805a7770&secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&auth_id=123
 			URL url=new URL(link);
 			HttpsURLConnection httpsURLConnection=(HttpsURLConnection) url.openConnection();
 			httpsURLConnection.setRequestMethod("POST");
