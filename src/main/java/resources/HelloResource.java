@@ -1,12 +1,11 @@
 package resources;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.QueryParam;
 
 import beans.User;
 import business.UserData;
@@ -22,7 +21,7 @@ public class HelloResource {
     @POST
 	@Path("/addnewuser")
 	@Produces("text/plain")
-	public static String signUp(@PathParam("name") String username,@PathParam("authId")String authId,@PathParam("phNo")String nubmer){
+	public static String signUp(@QueryParam("name") String username,@QueryParam("authId")String authId,@QueryParam("phNo")String nubmer){
 	User user=new User();
 	user.setAuthId(authId);
     user.setName(username);
