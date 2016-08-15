@@ -21,7 +21,7 @@ public class HelloResource {
     @POST
 	@Path("/addnewuser")
 //	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	public static String signUp(User user){
 	user.setAuthId("2423");
 	user.setEmail("user1@api.com");
@@ -29,7 +29,6 @@ public class HelloResource {
 	user.setDetails("Test1");
 	user.setPhoneNumber("1234567890");
 	user.setOrganization("org1");
-	String status=UserData.registerUser(user);
-	return status;
+	return UserData.registerUser(user);
 	}
 }
