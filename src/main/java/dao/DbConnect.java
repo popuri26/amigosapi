@@ -33,7 +33,9 @@ public class DbConnect {
 		Connection connection=connectDB();
 		String sql="insert into smart_cards (name,email,auth_id,ph_no,credit,org,details)values (?,?,?,?,?,?,?)";
 		try{
-			if(connectPA(token,secret,pin,user.getAuthId())){
+			if(connectPA(token,secret,pin,user.getAuthId()).equals("false")){
+				return "Auth Failed";}
+			else	
 				if(connection==null)
 					System.out.println("No Connection");
 				else{
@@ -49,36 +51,34 @@ public class DbConnect {
 						return "success";
 					else 
 						return "failed";
-				}
-			}else
-				return "Auth Failed";
-		}catch(Exception exception){
-			exception.printStackTrace();
-			return "failed";
 		}
+	}catch(Exception exception){
+		exception.printStackTrace();
 		return "failed";
 	}
-	public static boolean connectPA(String token,String secret, String pin,String authId){
-		try{
+	return "failed";
+}
+public static String connectPA(String token,String secret, String pin,String authId){
+	try{
 
-			String link="https://primeauth.com/api/v1/smart_card/edit_auth.json?"
-					+ "token=63f28afd95d178df830f74dc805a7770"
-					+ "&secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&auth_id="+authId;
-//			https://primeauth.com/api/v1/smart_card/edit_auth.json?
-//				token=63f28afd95d178df830f74dc805a7770&secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&auth_id=123
-			URL url=new URL(link);
-			HttpsURLConnection httpsURLConnection=(HttpsURLConnection) url.openConnection();
-			httpsURLConnection.setRequestMethod("POST");
-			httpsURLConnection.setDoInput(true);
-			httpsURLConnection.setDoOutput(true);
-			httpsURLConnection.addRequestProperty("User-Agent",
-					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
-			return httpsURLConnection.getResponseMessage().equals("true");
-		}catch(Exception exception){
+		String link="https://primeauth.com/api/v1/smart_card/edit_auth.json?"
+				+ "token=63f28afd95d178df830f74dc805a7770"
+				+ "&secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&auth_id="+authId;
+		//			https://primeauth.com/api/v1/smart_card/edit_auth.json?
+		//				token=63f28afd95d178df830f74dc805a7770&secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&auth_id=123
+		URL url=new URL(link);
+		HttpsURLConnection httpsURLConnection=(HttpsURLConnection) url.openConnection();
+		httpsURLConnection.setRequestMethod("POST");
+		httpsURLConnection.setDoInput(true);
+		httpsURLConnection.setDoOutput(true);
+		httpsURLConnection.addRequestProperty("User-Agent",
+				"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
+		return httpsURLConnection.getInputStream().toString();
+	}catch(Exception exception){
 
-		}
-		return false;
 	}
+	return "false";
+}
 }
 
 
