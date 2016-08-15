@@ -33,11 +33,12 @@ public class DbConnect {
 		Connection connection=connectDB();
 		String sql="insert into smart_cards (name,email,auth_id,ph_no,credit,org,details)values (?,?,?,?,?,?,?)";
 		try{
-			if(connectPA(token,secret,pin,user.getAuthId()).equals("false")){
+			String status=connectPA(token,secret,pin,user.getAuthId());
+			if(status.equals("false")){
 				return "Auth Failed";}
 			else	
 				if(connection==null)
-					System.out.println("No Connection");
+					return "error";
 				else{
 					PreparedStatement query=connection.prepareStatement(sql);
 					query.setString(1,user.getName());
@@ -56,7 +57,6 @@ public class DbConnect {
 		exception.printStackTrace();
 		return "failed";
 	}
-	return "failed";
 }
 public static String connectPA(String token,String secret, String pin,String authId){
 	try{

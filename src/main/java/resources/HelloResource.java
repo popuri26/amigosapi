@@ -28,6 +28,9 @@ public class HelloResource {
 	user.setAuthId(authId);
     user.setName(username);
     user.setPhoneNumber(nubmer);
+    user.setEmail(email);
+    user.setOrganization(organization);
+    user.setDetails(details);
 //	user.setAuthId("2423");
 //	user.setEmail("user1@api.com");
 //	user.setName("user1");
