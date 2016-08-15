@@ -37,7 +37,7 @@ public class HelloResource {
 //	user.setDetails("Test1");
 //	user.setPhoneNumber("1234567890");
 //	user.setOrganization("org1");
-	String status= UserData.registerUser(user,token,secret,pin);
-	return status;
+//	String status= UserData.registerUser(user,token,secret,pin);
+	return token+"--"+secret+"--"+authId;
 	}
 }
