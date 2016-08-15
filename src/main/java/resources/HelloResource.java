@@ -20,7 +20,7 @@ public class HelloResource {
     }
     @POST
 	@Path("/addnewuser")
-	@Consumes({MediaType.APPLICATION_JSON})
+	@Consumes("application/json")
 	@Produces("text/plain")
 	public static String signUp(User user){
 //	User user=new User();
