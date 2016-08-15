@@ -14,14 +14,14 @@ import business.UserData;
 public class HelloResource {
 
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces("text/plain")
     public String handleGreeting() {
     	return "Success";
     }
     @POST
 	@Path("/addnewuser")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes("application/json")
+	@Produces("application/json")
 	public static String signUp(User user){
 	user.setAuthId("2423");
 	user.setEmail("user1@api.com");
