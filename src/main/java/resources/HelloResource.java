@@ -20,10 +20,11 @@ public class HelloResource {
     }
     @POST
 	@Path("/addnewuser")
-//	@Consumes("application/json")
+	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces("text/plain")
-	public static String signUp(){
-	User user=new User();
+	public static String signUp(User user){
+//	User user=new User();
+    	System.out.println("input is : "+user.getAuthId());
 	user.setAuthId("2423");
 	user.setEmail("user1@api.com");
 	user.setName("user1");
