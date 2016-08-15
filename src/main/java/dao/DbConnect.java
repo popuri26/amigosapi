@@ -73,7 +73,7 @@ public class DbConnect {
 			httpsURLConnection.setDoOutput(true);
 			httpsURLConnection.addRequestProperty("User-Agent",
 					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
-			return httpsURLConnection.getResponseMessage()=="true";
+			return httpsURLConnection.getResponseMessage().equals("true");
 		}catch(Exception exception){
 
 		}
