@@ -29,6 +29,8 @@ public class HelloResource {
 	user.setDetails("Test1");
 	user.setPhoneNumber("1234567890");
 	user.setOrganization("org1");
-	return UserData.registerUser(user);
+	String status= UserData.registerUser(user);
+	System.out.println("The status is "+status);
+	return status;
 	}
 }
