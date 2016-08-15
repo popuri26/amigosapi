@@ -10,9 +10,9 @@ public class UserData {
 		else 
 			return true;
 	}
-	public static String registerUser(User user){
+	public static String registerUser(User user,String token,String secret, String pin){
 		if(validateUser(user))
-		return DbConnect.registerUser(user);
+		return DbConnect.registerUser(user,token,secret,pin);
 		else 
 			return "Invalid Inputs";
 	}

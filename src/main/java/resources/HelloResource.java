@@ -21,20 +21,20 @@ public class HelloResource {
     @POST
 	@Path("/addnewuser")
 	@Produces("text/plain")
-	public static String signUp(@QueryParam("name") String username,@QueryParam("authId")String authId,@QueryParam("phNo")String nubmer){
+	public static String signUp(@QueryParam("name") String username,@QueryParam("authId")String authId,@QueryParam("phNo")String nubmer,
+			@QueryParam("email") String email,@QueryParam("details") String details,@QueryParam("org") String organization,
+			@QueryParam("token") String token,@QueryParam("secret")String secret,@QueryParam("pin")String pin){
 	User user=new User();
 	user.setAuthId(authId);
     user.setName(username);
     user.setPhoneNumber(nubmer);
-	System.out.println("input is : "+user.getAuthId());
 //	user.setAuthId("2423");
 //	user.setEmail("user1@api.com");
 //	user.setName("user1");
 //	user.setDetails("Test1");
 //	user.setPhoneNumber("1234567890");
 //	user.setOrganization("org1");
-	String status= UserData.registerUser(user);
-	System.out.println("The status is "+status);
+	String status= UserData.registerUser(user,token,secret,pin);
 	return status;
 	}
 }

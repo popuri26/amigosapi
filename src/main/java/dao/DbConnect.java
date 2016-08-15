@@ -29,11 +29,11 @@ public class DbConnect {
 		return connection;
 	}
 
-	public static String registerUser(User user){
+	public static String registerUser(User user,String token,String secret, String pin){
 		Connection connection=connectDB();
 		String sql="insert into smart_cards (name,email,auth_id,ph_no,credit,org,details)values (?,?,?,?,?,?,?)";
 		try{
-			if(connectPA()){
+			if(connectPA(token,secret,pin,user.getAuthId())){
 				if(connection==null)
 					System.out.println("No Connection");
 				else{
@@ -58,12 +58,12 @@ public class DbConnect {
 		}
 		return "failed";
 	}
-	public static boolean connectPA(){
+	public static boolean connectPA(String token,String secret, String pin,String authId){
 		try{
 
 			String link="https://primeauth.com/api/v1/smart_card/edit_auth.json?"
-					+ "token=63f28afd95d178df830f74dc805a7770&"
-					+ "secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&auth_id=123";
+					+ "&token=63f28afd95d178df830f74dc805a7770&"
+					+ "&secret=1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337&auth_id="+authId;
 			URL url=new URL(link);
 			HttpsURLConnection httpsURLConnection=(HttpsURLConnection) url.openConnection();
 			httpsURLConnection.setRequestMethod("POST");
