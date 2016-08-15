@@ -20,9 +20,10 @@ public class HelloResource {
     }
     @POST
 	@Path("/addnewuser")
-	@Consumes("application/json")
-	@Produces("application/json")
-	public static String signUp(User user){
+//	@Consumes("application/json")
+	@Produces("text/plain")
+	public static String signUp(){
+	User user=new User();
 	user.setAuthId("2423");
 	user.setEmail("user1@api.com");
 	user.setName("user1");
