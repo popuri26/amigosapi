@@ -20,7 +20,7 @@ public class HelloResource {
     }
     @POST
 	@Path("/addnewuser")
-//	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public static String signUp(User user){
 	user.setAuthId("2423");
