@@ -4,20 +4,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User {
-	private Integer id;
+	
 	private String name;
 	private String phoneNumber;
 	private String email;
 	private String authId;
 	private String organization;
 	private String details;
-	private String token;
-	private String secret;
-	public Integer getId() {
-		return id;
+	private String credit;
+	
+	public String getCredit() {
+		return credit;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCredit(String credit) {
+		this.credit = credit;
 	}
 	public String getName() {
 		return name;
@@ -54,17 +54,5 @@ public class User {
 	}
 	public void setDetails(String details) {
 		this.details = details;
-	}
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
-	public String getSecret() {
-		return secret;
-	}
-	public void setSecret(String secret) {
-		this.secret = secret;
 	}
 }

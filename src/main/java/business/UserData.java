@@ -16,4 +16,12 @@ public class UserData {
 		else 
 			return "Invalid Inputs";
 	}
+	
+	public static String editUser(User user,String token,String secret, String pin){
+		return DbConnect.editUser(user,token,secret,pin);
+	}
+	public static User getUser(String authId){
+		return DbConnect.getUser(authId);
+	}
+	
 }
