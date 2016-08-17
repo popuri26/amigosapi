@@ -3,7 +3,6 @@ package resources;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
@@ -45,8 +44,7 @@ public class HelloResource {
 	@Path("/edituser")
 	@Produces("text/plain")
 	public static String editUser(@QueryParam("name") String username,@QueryParam("authId")String authId,@QueryParam("phNo")String number,
-			@QueryParam("email") String email,@QueryParam("details") String details,@QueryParam("org") String organization,
-			@QueryParam("token") String token,@QueryParam("secret")String secret,@QueryParam("pin")String pin){
+			@QueryParam("email") String email,@QueryParam("details") String details,@QueryParam("org") String organization){
 		User user=new User();
 		user.setAuthId(authId);
 		user.setName(username);
