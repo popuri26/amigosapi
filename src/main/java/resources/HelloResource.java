@@ -60,7 +60,7 @@ public class HelloResource {
 		//	user.setDetails("Test1");
 		//	user.setPhoneNumber("1234567890");
 		//	user.setOrganization("org1");
-		String status= UserData.registerUser(user,token,secret,pin);
+		String status= UserData.editUser(user);
 		return status;
 	}
 
