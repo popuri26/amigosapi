@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -104,31 +105,29 @@ public class DbConnect {
 		}
 		return null;
 	}
-	public static String editUser(User user,String token,String secret, String pin){
+	public static String editUser(User user){
 		Connection connection=connectDB();
-		String query1="update smart_cards ";
-		String sql="insert into smart_cards (name,email,auth_id,ph_no,credit,org,details)values (?,?,?,?,?,?,?)";
+		String sql="update smart_cards set";
 		try{
-			String status=connectPA(token,secret,pin,user.getAuthId());
-			if(status.equals("false")){
-				return "Auth Failed";}
-			else	
-				if(connection==null)
-					return "error";
-				else{
-					PreparedStatement query=connection.prepareStatement(sql);
-					query.setString(1,user.getName());
-					query.setString(2, user.getEmail());
-					query.setString(3,user.getAuthId());
-					query.setString(4, user.getPhoneNumber());
-					query.setString(5,"0");
-					query.setString(6, user.getOrganization());
-					query.setString(7,user.getDetails());
-					if(query.executeUpdate()!=0)
-						return "success";
-					else 
-						return "failed";
-				}
+			if(connection==null)
+				return "error";
+			else{
+				if(!user.getName().equals("none"))
+					sql=sql+"name="+user.getName()+",";
+				if(!user.getEmail().equals("none"))
+					sql=sql+"email="+user.getEmail()+",";
+				if(!user.getPhoneNumber().equals("none"))
+					sql=sql+"ph_no="+user.getPhoneNumber()+",";
+				if(!user.getCredit().equals("none"))
+					sql=sql+"credit="+user.getCredit()+",";
+				if(!user.getOrganization().equals("none"))
+					sql=sql+"org="+user.getOrganization()+",";
+				if(!user.getDetails().equals("none"))
+					sql=sql+"details="+user.getDetails();
+				sql=sql+"where auth_id="+user.getAuthId();
+				Statement statement=connection.createStatement();
+				return statement.execute(sql)+"";
+			}
 		}catch(Exception exception){
 			exception.printStackTrace();
 			return "failed";

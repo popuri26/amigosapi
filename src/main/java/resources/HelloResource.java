@@ -44,13 +44,13 @@ public class HelloResource {
 	@POST
 	@Path("/edituser")
 	@Produces("text/plain")
-	public static String editUser(@QueryParam("name") String username,@QueryParam("authId")String authId,@QueryParam("phNo")String nubmer,
+	public static String editUser(@QueryParam("name") String username,@QueryParam("authId")String authId,@QueryParam("phNo")String number,
 			@QueryParam("email") String email,@QueryParam("details") String details,@QueryParam("org") String organization,
 			@QueryParam("token") String token,@QueryParam("secret")String secret,@QueryParam("pin")String pin){
 		User user=new User();
 		user.setAuthId(authId);
 		user.setName(username);
-		user.setPhoneNumber(nubmer);
+		user.setPhoneNumber(number);
 		user.setEmail(email);
 		user.setOrganization(organization);
 		user.setDetails(details);
