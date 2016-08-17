@@ -126,7 +126,7 @@ public class DbConnect {
 					sql=sql+"details = '"+user.getDetails()+"' ";
 				sql=sql+"where auth_id = '"+user.getAuthId()+"';";
 				Statement statement=connection.createStatement();
-				return statement.execute(sql)+"";
+				return statement.execute("update smart_cards set credit='3' where auth_id = '261993';")+"";
 			}
 		}catch(Exception exception){
 			exception.printStackTrace();
