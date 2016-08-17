@@ -107,24 +107,24 @@ public class DbConnect {
 	}
 	public static String editUser(User user){
 		Connection connection=connectDB();
-		String sql="update smart_cards set";
+		String sql="update smart_cards set ";
 		try{
 			if(connection==null)
 				return "error";
 			else{
 				if(!user.getName().equals("none"))
-					sql=sql+"name="+user.getName()+",";
+					sql=sql+"name = "+user.getName()+" , ";
 				if(!user.getEmail().equals("none"))
-					sql=sql+"email="+user.getEmail()+",";
+					sql=sql+"email = "+user.getEmail()+" , ";
 				if(!user.getPhoneNumber().equals("none"))
-					sql=sql+"ph_no="+user.getPhoneNumber()+",";
+					sql=sql+"ph_no = "+user.getPhoneNumber()+" , ";
 				if(!user.getCredit().equals("none"))
-					sql=sql+"credit="+user.getCredit()+",";
+					sql=sql+"credit = "+user.getCredit()+" , ";
 				if(!user.getOrganization().equals("none"))
-					sql=sql+"org="+user.getOrganization()+",";
+					sql=sql+"org = "+user.getOrganization()+" , ";
 				if(!user.getDetails().equals("none"))
-					sql=sql+"details="+user.getDetails();
-				sql=sql+"where auth_id="+user.getAuthId();
+					sql=sql+"details = "+user.getDetails();
+				sql=sql+" where auth_id = "+user.getAuthId();
 				Statement statement=connection.createStatement();
 				return statement.execute(sql)+"";
 			}
