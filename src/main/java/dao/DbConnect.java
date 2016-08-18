@@ -125,9 +125,10 @@ public class DbConnect {
 				if(!user.getDetails().equals("none"))
 					sql=sql+" details = '"+user.getDetails()+"'";
 				if (sql.endsWith(",")) {
-					sql=sql.substring(0,sql.length()-2)+"where auth_id = '"+user.getAuthId()+"';";
+					sql=sql.substring(0,sql.length()-2)+" where auth_id = '"+user.getAuthId()+"';";
 				}
-				sql=sql+" where auth_id = '"+user.getAuthId()+"';";
+				else
+					sql=sql+" where auth_id = '"+user.getAuthId()+"';";
 				Statement statement=connection.createStatement();
 				statement.executeUpdate(sql);
 				return "true";
