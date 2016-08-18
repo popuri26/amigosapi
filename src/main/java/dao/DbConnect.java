@@ -127,9 +127,10 @@ public class DbConnect {
 				if (sql.endsWith(",")) {
 					sql=sql.substring(0,sql.length()-2)+"where auth_id = '"+user.getAuthId()+"';";
 				}
-				sql=sql+"where auth_id = '"+user.getAuthId()+"';";
+				sql=sql+" where auth_id = '"+user.getAuthId()+"';";
 				Statement statement=connection.createStatement();
-				return statement.execute("update smart_cards set credit='3' where auth_id = '261993';")+"";
+				statement.executeUpdate(sql);
+				return "true";
 			}
 		}catch(Exception exception){
 			exception.printStackTrace();
