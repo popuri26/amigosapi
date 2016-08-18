@@ -113,17 +113,20 @@ public class DbConnect {
 				return "error";
 			else{
 				if(!user.getName().equals("none"))
-					sql=sql+"name = '"+user.getName()+"' , ";
+					sql=sql+" name = '"+user.getName()+"' ,";
 				if(!user.getEmail().equals("none"))
-					sql=sql+"email = '"+user.getEmail()+"' , ";
+					sql=sql+" email = '"+user.getEmail()+"' ,";
 				if(!user.getPhoneNumber().equals("none"))
-					sql=sql+"ph_no = '"+user.getPhoneNumber()+"' , ";
+					sql=sql+" ph_no = '"+user.getPhoneNumber()+"' ,";
 				if(!user.getCredit().equals("none"))
-					sql=sql+"credit = '"+user.getCredit()+"' , ";
+					sql=sql+" credit = '"+user.getCredit()+"' ,";
 				if(!user.getOrganization().equals("none"))
-					sql=sql+"org = '"+user.getOrganization()+"' , ";
+					sql=sql+" org = '"+user.getOrganization()+"' ,";
 				if(!user.getDetails().equals("none"))
-					sql=sql+"details = '"+user.getDetails()+"' ";
+					sql=sql+" details = '"+user.getDetails()+"'";
+				if (sql.endsWith(",")) {
+					sql=sql.substring(0,sql.length()-2)+"where auth_id = '"+user.getAuthId()+"';";
+				}
 				sql=sql+"where auth_id = '"+user.getAuthId()+"';";
 				Statement statement=connection.createStatement();
 				return statement.execute("update smart_cards set credit='3' where auth_id = '261993';")+"";
