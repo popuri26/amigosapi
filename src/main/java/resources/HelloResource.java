@@ -32,6 +32,7 @@ public class HelloResource {
 		user.setEmail(email);
 		user.setOrganization(organization);
 		user.setDetails(details);
+		user.setCredit(credit);
 		//	user.setAuthId("2423");
 		//	user.setEmail("user1@api.com");
 		//	user.setName("user1");
@@ -45,8 +46,10 @@ public class HelloResource {
 	@POST
 	@Path("/edituser")
 	@Produces("text/plain")
-	public static String editUser(@QueryParam("name") String username,@QueryParam("authId")String authId,@QueryParam("phNo")String number,
-			@QueryParam("email") String email,@QueryParam("details") String details,@QueryParam("org") String organization,@QueryParam("credit")String credit){
+	public static String editUser(@QueryParam("name") String username,@QueryParam("authId")String authId,
+			@QueryParam("phNo")String number,@QueryParam("email") String email,
+			@QueryParam("details") String details,@QueryParam("org") String organization,
+			@QueryParam("credit")String credit){
 		User user=new User();
 		user.setAuthId(authId);
 		user.setName(username);
