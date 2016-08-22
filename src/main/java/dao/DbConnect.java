@@ -95,6 +95,8 @@ public class DbConnect {
 		try{
 			String link="https://primeauth.com/api/v1/smart_card/edit_auth.json?"
 					+ "token="+token+"&secret="+secret+"&auth_id="+authId;
+			if(pin!=null)
+				link=link+"&pin="+pin;
 			URL url=new URL(link);
 			HttpsURLConnection httpsURLConnection=(HttpsURLConnection) url.openConnection();
 			httpsURLConnection.setRequestMethod("POST");
