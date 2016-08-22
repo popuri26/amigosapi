@@ -33,7 +33,7 @@ public class DbConnect {
 
 	public static String registerUser(User user,String token,String secret, String pin){
 		Connection connection=connectDB();
-		String sql="insert into smart_cards (name,email,auth_id,ph_no,credit,org,details)values (?,?,?,?,?,?,?)";
+		String sql="insert into smart_cards (name,email,auth_id,ph_no,credit,org,details) values (?,?,?,?,?,?,?)";
 		try{
 			String status=connectPA(token,secret,pin,user.getAuthId());
 			if(status.equals("false")){
