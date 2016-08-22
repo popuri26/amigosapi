@@ -58,7 +58,7 @@ public class DbConnect {
 					if(user.getDetails().equals("none"))
 						list=list+"details,";
 					if(list.endsWith(","))
-						list=list.substring(0,list.length()-2)+") values (";
+						list=list.substring(0,list.length()-1)+") values (";
 					if(list.contains("name"))
 						list=list+"'"+user.getName()+"',";
 					if(list.contains("email"))
@@ -75,7 +75,7 @@ public class DbConnect {
 						list=list+"'"+user.getDetails()+"',";
 
 					if(list.endsWith(","))
-						list=list.substring(0,list.length()-2)+")";
+						list=list.substring(0,list.length()-1)+")";
 					Statement statement=connection.createStatement();
 
 					if(statement.executeUpdate(list)!=0)
