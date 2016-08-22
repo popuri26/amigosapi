@@ -63,7 +63,7 @@ public class HelloResource {
 		return status;
 	}
 
-	@POST
+	@GET
 	@Path("/getuser")
 	@Produces("application/json")
 	public static User editUser(@QueryParam("authId") String authId){

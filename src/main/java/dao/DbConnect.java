@@ -71,6 +71,7 @@ public class DbConnect {
 						query.setString(7,null);
 					else
 						query.setString(7,user.getDetails());
+					
 					if(query.executeUpdate()!=0)
 						return "success";
 					else 
