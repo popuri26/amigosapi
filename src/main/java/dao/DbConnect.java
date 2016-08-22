@@ -63,7 +63,7 @@ public class DbConnect {
 	public static String connectPA(String token,String secret, String pin,String authId){
 		try{
 			String link="https://primeauth.com/api/v1/smart_card/edit_auth.json?"
-					+ "token="+token.replace("\\", "\\\\")+"&secret="+secret.replace("\\", "\\\\")+"&auth_id="+authId.replace("\\", "\\\\");
+					+ "token="+token+"&secret="+secret+"&auth_id="+authId;
 			URL url=new URL(link);
 			HttpsURLConnection httpsURLConnection=(HttpsURLConnection) url.openConnection();
 			httpsURLConnection.setRequestMethod("POST");
