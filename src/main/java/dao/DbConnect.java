@@ -33,7 +33,8 @@ public class DbConnect {
 
 	public static String registerUser(User user,String token,String secret, String pin){
 		Connection connection=connectDB();
-		String sql="insert into smart_cards (name,email,auth_id,ph_no,credit,org,details) values (?,?,?,?,?,?,?)";
+		String list="insert into smart_cards(";
+		Integer count=0;
 		try{
 			String status=connectPA(token,secret,pin,user.getAuthId());
 			if(status.equals("false")){
@@ -42,37 +43,42 @@ public class DbConnect {
 				if(connection==null)
 					return "error";
 				else{
-					PreparedStatement query=connection.prepareStatement(sql);
-					if(user.getName().equals("none"))
-						query.setString(1,null);
-					else
-						query.setString(1, user.getName());
+					if(!user.getName().equals("none"))
+						list=list+"name,";
 					if(user.getEmail().equals("none"))
-						query.setString(2,null);
-					else
-						query.setString(2, user.getEmail());
-
+						list=list+"email,";
 					if(user.getAuthId().equals("none"))
-						query.setString(3,null);
-					else
-						query.setString(3, user.getAuthId());
-
+						list=list+"auth_id,";
 					if(user.getPhoneNumber().equals("none"))
-						query.setString(4,null);
-					else
-						query.setString(4, user.getPhoneNumber());
-
-					query.setString(5,"0");
+						list=list+"ph_no,";
+					if(user.getCredit().equals("none"))
+						list=list+"credit,";
 					if(user.getOrganization().equals("none"))
-						query.setString(6,null);
-					else
-						query.setString(6, user.getOrganization());
+						list=list+"org,";
 					if(user.getDetails().equals("none"))
-						query.setString(7,null);
-					else
-						query.setString(7,user.getDetails());
-					
-					if(query.executeUpdate()!=0)
+						list=list+"details,";
+					if(list.endsWith(","))
+						list=list.substring(0,list.length()-2)+") values (";
+					if(list.contains("name"))
+						list=list+"'"+user.getName()+"',";
+					if(list.contains("email"))
+						list=list+"'"+user.getEmail()+"',";
+					if(list.contains("auth_id"))
+						list=list+"'"+user.getAuthId()+"',";
+					if(list.contains("ph_no"))
+						list=list+"'"+user.getPhoneNumber()+"',";
+					if(list.contains("credit"))
+						list=list+"'0',";
+					if(list.contains("org"))
+						list=list+"'"+user.getOrganization()+"',";
+					if(list.contains("details"))
+						list=list+"'"+user.getDetails()+"',";
+
+					if(list.endsWith(","))
+						list=list.substring(0,list.length()-2)+")";
+					Statement statement=connection.createStatement();
+
+					if(statement.executeUpdate(list)!=0)
 						return "success";
 					else 
 						return "failed";
