@@ -21,8 +21,9 @@ public class HelloResource {
 	@POST
 	@Path("/addnewuser")
 	@Produces("text/plain")
-	public static String signUp(@QueryParam("name") String username,@QueryParam("auth_id") String authId,@QueryParam("phNo")String nubmer,
-			@QueryParam("email") String email,@QueryParam("details") String details,@QueryParam("org") String organization,
+	public static String signUp(@QueryParam("name") String username,@QueryParam("auth_id") String authId,
+			@QueryParam("phNo")String nubmer,@QueryParam("email") String email,@QueryParam("details") String details,
+			@QueryParam("org") String organization,@QueryParam("credit") String credit,
 			@QueryParam("token") String token,@QueryParam("secret")String secret,@QueryParam("pin")String pin){
 		User user=new User();
 		user.setAuthId(authId);
