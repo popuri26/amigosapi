@@ -81,7 +81,7 @@ public class DbConnect {
 					Statement statement=connection.createStatement();
 
 					if(statement.executeUpdate(list)==0)
-						return "failed";
+						return "failed to insert";
 					else 
 						return "success";
 				}
