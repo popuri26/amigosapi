@@ -34,7 +34,6 @@ public class DbConnect {
 	public static String registerUser(User user,String token,String secret, String pin){
 		Connection connection=connectDB();
 		String list="insert into smart_cards(";
-		Integer count=0;
 		try{
 			String status=connectPA(token,secret,pin,user.getAuthId());
 			if(status.equals("false")){
@@ -45,19 +44,19 @@ public class DbConnect {
 				else{
 					if(!user.getName().equals("none"))
 						list=list+"name,";
-					if(user.getEmail().equals("none"))
+					if(!user.getEmail().equals("none"))
 						list=list+"email,";
-					if(user.getAuthId().equals("none"))
+					if(!user.getAuthId().equals("none"))
 						list=list+"auth_id,";
-					if(user.getPhoneNumber().equals("none"))
+					if(!user.getPhoneNumber().equals("none"))
 						list=list+"ph_no,";
-					if(user.getCredit().equals("none"))
+					if(!user.getCredit().equals("none"))
 						list=list+"credit,";
-					if(user.getOrganization().equals("none"))
+					if(!user.getOrganization().equals("none"))
 						list=list+"org,";
-					if(user.getDetails().equals("none"))
+					if(!user.getDetails().equals("none"))
 						list=list+"details,";
-					if(list.endsWith(","))
+					if(!list.endsWith(","))
 						list=list.substring(0,list.length()-1)+") values (";
 					if(list.contains("name"))
 						list=list+"'"+user.getName()+"',";
