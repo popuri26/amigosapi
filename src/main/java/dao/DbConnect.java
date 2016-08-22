@@ -77,10 +77,10 @@ public class DbConnect {
 						list=list.substring(0,list.length()-1)+")";
 					Statement statement=connection.createStatement();
 
-					if(statement.executeUpdate(list)!=0)
-						return "success";
-					else 
+					if(statement.executeUpdate(list)==0)
 						return "failed";
+					else 
+						return "success";
 				}
 		}catch(Exception exception){
 			exception.printStackTrace();
