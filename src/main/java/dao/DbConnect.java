@@ -43,13 +43,34 @@ public class DbConnect {
 					return "error";
 				else{
 					PreparedStatement query=connection.prepareStatement(sql);
-					query.setString(1,user.getName());
-					query.setString(2, user.getEmail());
-					query.setString(3,user.getAuthId());
-					query.setString(4, user.getPhoneNumber());
+					if(user.getName().equals("none"))
+						query.setString(1,null);
+					else
+						query.setString(1, user.getName());
+					if(user.getEmail().equals("none"))
+						query.setString(2,null);
+					else
+						query.setString(2, user.getEmail());
+
+					if(user.getAuthId().equals("none"))
+						query.setString(3,null);
+					else
+						query.setString(3, user.getAuthId());
+
+					if(user.getPhoneNumber().equals("none"))
+						query.setString(4,null);
+					else
+						query.setString(4, user.getPhoneNumber());
+
 					query.setString(5,"0");
-					query.setString(6, user.getOrganization());
-					query.setString(7,user.getDetails());
+					if(user.getOrganization().equals("none"))
+						query.setString(6,null);
+					else
+						query.setString(6, user.getOrganization());
+					if(user.getDetails().equals("none"))
+						query.setString(7,null);
+					else
+						query.setString(7,user.getDetails());
 					if(query.executeUpdate()!=0)
 						return "success";
 					else 
