@@ -48,6 +48,8 @@ public class DbConnect {
 						list=list+"email,";
 					if(!user.getAuthId().equals("none"))
 						list=list+"auth_id,";
+					else
+						return "Not a valid auth Id";
 					if(!user.getPhoneNumber().equals("none"))
 						list=list+"ph_no,";
 					if(!user.getCredit().equals("none"))
@@ -56,7 +58,7 @@ public class DbConnect {
 						list=list+"org,";
 					if(!user.getDetails().equals("none"))
 						list=list+"details,";
-					if(!list.endsWith(","))
+					if(list.endsWith(","))
 						list=list.substring(0,list.length()-1)+") values (";
 					if(list.contains("name"))
 						list=list+"'"+user.getName()+"',";
@@ -75,6 +77,7 @@ public class DbConnect {
 
 					if(list.endsWith(","))
 						list=list.substring(0,list.length()-1)+")";
+					System.out.println(list);
 					Statement statement=connection.createStatement();
 
 					if(statement.executeUpdate(list)==0)
@@ -82,6 +85,7 @@ public class DbConnect {
 					else 
 						return "success";
 				}
+//					return "success";
 		}catch(Exception exception){
 			exception.printStackTrace();
 			return "failed";

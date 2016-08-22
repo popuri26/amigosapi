@@ -8,6 +8,7 @@ import javax.ws.rs.QueryParam;
 
 import beans.User;
 import business.UserData;
+import dao.DbConnect;
 
 @Path("/users")
 public class HelloResource {
@@ -80,5 +81,17 @@ public class HelloResource {
 		}
 		return user;
 	}
-
+//	public static void main(String[] args){
+//		User user=new User();
+//		user.setAuthId("1ZWSp+L+nDvwudBwHs4c5Q==\n");
+//		user.setName("pa");
+//		user.setPhoneNumber("9999900009");
+//		user.setEmail("usr@pa.com");
+//		user.setOrganization("none");
+//		user.setCredit("0");
+//		user.setDetails("details");
+//		String token="63f28afd95d178df830f74dc805a7770";
+//		String secret="1f44a62157590c492b088176257272cea8795320f33ffce2da2def932ab0d337";
+//		DbConnect.registerUser(user, token, secret, "2622");
+//	}
 }
