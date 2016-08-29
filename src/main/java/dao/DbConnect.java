@@ -30,17 +30,40 @@ public class DbConnect {
 		}
 		return connection;
 	}
+	public static String getCredit(String token,String secret,String authId,String pin){
+
+		String credit="";
+		if(connectPA(token, secret, pin, authId, "check").equals(pin)){
+			Connection connection=connectDB();
+			String sql="select credit from smart_cards where auth_id like ?";
+			try{	
+				if(connection!=null){
+					PreparedStatement query=connection.prepareStatement(sql);
+					query.setMaxRows(1);
+					query.setString(1,authId);
+					ResultSet result=query.executeQuery();
+					while(result.next()){
+						result.getString(1);
+					}
+					return credit;
+				}
+			}catch (Exception exception) {
+				return "SQLException";
+			}
+		}
+		return null;
+	}
 
 	public static String registerUser(User user,String token,String secret, String pin){
 		Connection connection=connectDB();
 		String list="insert into smart_cards(";
 		try{
-			String status=connectPA(token,secret,pin,user.getAuthId());
+			String status=connectPA(token,secret,pin,user.getAuthId(),"new");
 			if(status.equals("false")){
-				return "Auth Failed";}
+				return "Invalid UserId or Pin";}
 			else	
 				if(connection==null)
-					return "error";
+					return "Some Error Occured! Please try later";
 				else{
 					if(!user.getName().equals("none"))
 						list=list+"name,";
@@ -49,7 +72,7 @@ public class DbConnect {
 					if(!user.getAuthId().equals("none"))
 						list=list+"auth_id,";
 					else
-						return "Not a valid auth Id";
+						return "Not a valid user Id";
 					if(!user.getPhoneNumber().equals("none"))
 						list=list+"ph_no,";
 					if(!user.getCredit().equals("none"))
@@ -79,24 +102,33 @@ public class DbConnect {
 						list=list.substring(0,list.length()-1)+")";
 					System.out.println(list);
 					Statement statement=connection.createStatement();
-
-					if(statement.executeUpdate(list)==0)
-						return "failed to insert";
+					Integer update=statement.executeUpdate(list);
+					connection.close();
+					if(update==0)
+						return "Failed to Update! Please try later";
 					else 
-						return "success";
+						return "Profile Edited Successfully";
 				}
-//					return "success";
+			//					return "success";
 		}catch(Exception exception){
 			exception.printStackTrace();
-			return "failed";
+			return "Some Error Occured! Please try later";
 		}
 	}
-	public static String connectPA(String token,String secret, String pin,String authId){
+	public static String connectPA(String token,String secret, String pin,String authId,String check){
 		try{
-			String link="https://primeauth.com/api/v1/smart_card/edit_auth.json?"
-					+ "token="+token+"&secret="+secret+"&auth_id="+authId;
-			if(pin!=null)
-				link=link+"&pin="+pin;
+			String link="";
+			if(check.equals("new")){
+				link="https://primeauth.com/api/v1/smart_card/edit_auth.json?"
+						+ "token="+token+"&secret="+secret+"&auth_id="+authId;
+				if(pin!=null)
+					link=link+"&pin="+pin;
+			}
+			else
+			{
+				link="https://primeauth.com/api/v1/smart_card/info.json?token="+token+"&secret="+secret
+						+"&auth_id="+authId+"&pin="+pin;
+			}
 			URL url=new URL(link);
 			HttpsURLConnection httpsURLConnection=(HttpsURLConnection) url.openConnection();
 			httpsURLConnection.setRequestMethod("POST");
@@ -130,46 +162,51 @@ public class DbConnect {
 					user.setOrganization(result.getString(5));
 					user.setDetails(result.getString(6));
 				}
+				connection.close();
 				return user;
 			}
 		}catch(Exception exception){
 			exception.printStackTrace();
-
 		}
 		return null;
 	}
-	public static String editUser(User user){
+	public static String editUser(String token, String secret, String pin, User user){
 		Connection connection=connectDB();
-		String sql="update smart_cards set ";
-		try{
-			if(connection==null)
-				return "error";
-			else{
-				if(!user.getName().equals("none"))
-					sql=sql+" name = '"+user.getName()+"' ,";
-				if(!user.getEmail().equals("none"))
-					sql=sql+" email = '"+user.getEmail()+"' ,";
-				if(!user.getPhoneNumber().equals("none"))
-					sql=sql+" ph_no = '"+user.getPhoneNumber()+"' ,";
-				if(!user.getCredit().equals("none"))
-					sql=sql+" credit = '"+user.getCredit()+"' ,";
-				if(!user.getOrganization().equals("none"))
-					sql=sql+" org = '"+user.getOrganization()+"' ,";
-				if(!user.getDetails().equals("none"))
-					sql=sql+" details = '"+user.getDetails()+"'";
-				if (sql.endsWith(",")) {
-					sql=sql.substring(0,sql.length()-2)+" where auth_id = '"+user.getAuthId()+"';";
-				}
-				else
-					sql=sql+" where auth_id = '"+user.getAuthId()+"';";
-				Statement statement=connection.createStatement();
-				statement.executeUpdate(sql);
-				return "true";
+		if(!connectPA(token, secret, pin, user.getAuthId(),"check").equals(pin)){
+			return "Auth Failed";
+		}else{
+			String sql="update smart_cards set ";
+			try{
+				if(connection==null)
+					return "error";
+				else{
+					if(!user.getName().equals("none"))
+						sql=sql+" name = '"+user.getName()+"' ,";
+					if(!user.getEmail().equals("none"))
+						sql=sql+" email = '"+user.getEmail()+"' ,";
+					if(!user.getPhoneNumber().equals("none"))
+						sql=sql+" ph_no = '"+user.getPhoneNumber()+"' ,";
+					if(!user.getCredit().equals("none"))
+						sql=sql+" credit = '"+user.getCredit()+"' ,";
+					if(!user.getOrganization().equals("none"))
+						sql=sql+" org = '"+user.getOrganization()+"' ,";
+					if(!user.getDetails().equals("none"))
+						sql=sql+" details = '"+user.getDetails()+"'";
+					if (sql.endsWith(",")) {
+						sql=sql.substring(0,sql.length()-2)+" where auth_id = '"+user.getAuthId()+"';";
+					}
+					else{
+						sql=sql+" where auth_id = '"+user.getAuthId()+"';";
+						Statement statement=connection.createStatement();
+						statement.executeUpdate(sql);
+						connection.close();
+						return "true";
+					}}
+			}catch(Exception exception){
+				exception.printStackTrace();
+				return "failed";
 			}
-		}catch(Exception exception){
-			exception.printStackTrace();
 			return "failed";
-
 		}
 	}
 }
